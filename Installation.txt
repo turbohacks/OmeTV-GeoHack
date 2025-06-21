@@ -1,0 +1,63 @@
+# WebRTC IP Location Tracker for OmeTV – JavaScript Tool
+
+## 🔍 About This Tool
+
+This is a browser-based JavaScript tool that allows you to capture the **public IP addresses** of people during OmeTV (or any WebRTC-based) video calls, and trace their **approximate location** using the IPGeolocation API.
+
+It logs the following information:
+- IP Address
+- City & State
+- Country
+- Latitude & Longitude
+- ISP & Organization
+- Timezone
+
+All of this is displayed directly inside the browser **console**.
+
+⚠️ This tool is for **educational purposes only**. Do not use it to violate anyone’s privacy or the terms of service of any website.
+
+---
+
+## ⚙️ How to Install and Use
+
+1. **Visit the Website**
+   - Go to [https://www.ome.tv](https://www.ome.tv) or any WebRTC-based video chat website.
+
+2. **Open Developer Tools**
+   - Press `Ctrl + Shift + I` (or `Cmd + Option + I` on Mac) to open Developer Tools.
+   - Click the **Console** tab.
+
+3. **Paste the Script**
+   - Open the `ome-ip-tracker.js` file from this repo.
+   - Copy the full JavaScript code and paste it into the **console**, then hit `Enter`.
+
+4. **Get Your API Key**
+   - Go to https://ipgeolocation.io/signup
+   - Create a **free account** and get your **API key**.
+   - In the script, replace this line:
+     ```js
+     const apiKey = "YOUR_API_KEY_HERE";
+     ```
+     with your actual API key from the site.
+
+5. ✅ You're Done!
+   - Now, when you connect with someone on OmeTV, their IP will be detected and their location will appear in the console.
+
+---
+
+## 🛡️ IMPORTANT SAFETY NOTICE
+
+- Always use a **VPN** when running this tool to protect your **own identity and IP address**.
+- This tool uses public WebRTC ICE candidates that may expose user IPs — respect privacy and use responsibly.
+- We do not store or share any data. Everything happens inside your local browser.
+
+---
+
+## 📄 File Info
+
+- `ome-ip-tracker.js` → Main script file (JavaScript)
+- `about.txt` (this file) → Tool info, usage instructions, and setup steps
+
+---
+
+© This project is for educational and ethical use only.
